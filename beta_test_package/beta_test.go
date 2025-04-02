@@ -1,4 +1,4 @@
-package exampletestpackage
+package alphatestpackage
 
 import (
 	"log"
@@ -8,33 +8,35 @@ import (
 	"time"
 )
 
+const packageName = "beta"
+
 func TestPass(t *testing.T) {
 	t.Parallel()
-	t.Log("This test always passes")
+	t.Logf("%s: This test always passes\n", packageName)
 }
 
 func TestFail(t *testing.T) {
 	t.Parallel()
-	t.Fatal("This test always fails")
+	t.Fatalf("%s: This test always fails\n", packageName)
 }
 
 func TestFailLargeOutput(t *testing.T) {
 	t.Parallel()
-	for i := 0; i < 1000; i++ {
-		t.Log("This is a log line")
+	for range 1000 {
+		t.Logf("%s: This is a log line\n", packageName)
 	}
-	t.Fatal("This test always fails")
+	t.Fatalf("%s: This test always fails\n", packageName)
 }
 
 func TestSubTestsAllPass(t *testing.T) {
 	t.Parallel()
 
 	t.Run("Pass1", func(t *testing.T) {
-		t.Log("This subtest always passes")
+		t.Logf("%s: This subtest always passes\n", packageName)
 	})
 
 	t.Run("Pass2", func(t *testing.T) {
-		t.Log("This subtest always passes")
+		t.Logf("%s: This subtest always passes\n", packageName)
 	})
 }
 
@@ -42,11 +44,11 @@ func TestSubTestsAllFail(t *testing.T) {
 	t.Parallel()
 
 	t.Run("Fail1", func(t *testing.T) {
-		t.Fatal("This subtest always fails")
+		t.Fatalf("%s: This subtest always fails\n", packageName)
 	})
 
 	t.Run("Fail2", func(t *testing.T) {
-		t.Fatal("This subtest always fails")
+		t.Fatalf("%s: This subtest always fails\n", packageName)
 	})
 }
 
@@ -54,11 +56,11 @@ func TestSubTestsSomeFail(t *testing.T) {
 	t.Parallel()
 
 	t.Run("Pass", func(t *testing.T) {
-		t.Log("This subtest always passes")
+		t.Logf("%s: This subtest always passes\n", packageName)
 	})
 
 	t.Run("Fail", func(t *testing.T) {
-		t.Fatal("This subtest always fails")
+		t.Fatalf("%s: This subtest always fails\n", packageName)
 	})
 }
 
@@ -66,7 +68,7 @@ func TestSubTestsSomePanic(t *testing.T) {
 	t.Parallel()
 
 	t.Run("Pass", func(t *testing.T) {
-		t.Log("This subtest always passes")
+		t.Logf("%s: This subtest always passes\n", packageName)
 	})
 
 	t.Run("Panic", func(t *testing.T) {
@@ -78,29 +80,29 @@ func TestFailInParentAfterSubTests(t *testing.T) {
 	t.Parallel()
 
 	t.Run("Pass1", func(t *testing.T) {
-		t.Log("This subtest always passes")
+		t.Logf("%s: This subtest always passes\n", packageName)
 	})
 
 	t.Run("Pass2", func(t *testing.T) {
-		t.Log("This subtest always passes")
+		t.Logf("%s: This subtest always passes\n", packageName)
 	})
 
-	t.Fatal("This test always fails")
+	t.Fatalf("%s: This test always fails\n", packageName)
 }
 
 func TestFailInParentBeforeSubTests(t *testing.T) {
 	t.Parallel()
 
-	t.Fatal("This test always fails") //nolint:revive
+	t.Fatalf("%s: This test always fails\n", packageName) //nolint:revive
 
 	t.Run("Pass1", func(t *testing.T) {
 		t.Parallel()
-		t.Log("This subtest always passes")
+		t.Logf("%s: This subtest always passes\n", packageName)
 	})
 
 	t.Run("Pass2", func(t *testing.T) {
 		t.Parallel()
-		t.Log("This subtest always passes")
+		t.Logf("%s: This subtest always passes\n", packageName)
 	})
 }
 
@@ -126,7 +128,7 @@ func TestFlaky(t *testing.T) {
 		})
 	}
 
-	t.Log("This test passes after the first run")
+	t.Logf("%s: This test passes after the first run\n", packageName)
 }
 
 func TestSkipped(t *testing.T) {
