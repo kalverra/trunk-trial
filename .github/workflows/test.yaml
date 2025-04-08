@@ -12,13 +12,16 @@ on:
 
 # DEBUG: Concurrency
 concurrency:
-    group: ${{ github.ref != 'refs/heads/pr5' && format('tests-{0}-{1}-{2}', github.ref, github.repository, github.event_name) || '' }}
+    group: ${{ github.ref != 'refs/heads/pr5' && format('tests-{0}-{1}-{2}', github.ref, github.repository, github.event_name) || github.sha }}
     cancel-in-progress: true
 
 jobs:
     test:
         runs-on: ubuntu-latest
         steps:
+            - name: Print concurrency group
+              run: |
+                echo "Concurrency group: ${{ github.concurrency.group }}"
             - name: Checkout code
               uses: actions/checkout@v4
             - name: Set up Go
@@ -40,4 +43,4 @@ jobs:
             - name: Sleep
               if: always()
               run: |
-                sleep 10000
+                sleep 200
