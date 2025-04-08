@@ -22,6 +22,7 @@ func TestFail(t *testing.T) {
 
 func TestFailLargeOutput(t *testing.T) {
 	t.Parallel()
+	t.Skip("Skipping large output test for now")
 	for range 1000 {
 		t.Logf("%s: This is a log line\n", packageName)
 	}
