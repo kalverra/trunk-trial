@@ -2,6 +2,7 @@ package alphatestpackage
 
 import (
 	"log"
+	"math/rand"
 	"os"
 	"sync"
 	"testing"
@@ -18,6 +19,17 @@ func TestPass(t *testing.T) {
 func TestFail(t *testing.T) {
 	t.Parallel()
 	t.Fatalf("%s: This test always fails\n", packageName)
+}
+
+func TestRandomFlaky(t *testing.T) {
+	t.Parallel()
+	random := rand.Intn(4)
+
+	if random == 0 {
+		t.Fatal("This test is designed to flake 1/4 of the time")
+	}
+
+	t.Log("This test is designed to pass 3/4 of the time")
 }
 
 func TestFailLargeOutput(t *testing.T) {
