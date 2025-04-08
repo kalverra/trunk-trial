@@ -35,3 +35,6 @@ jobs:
                 junit-paths: "**/junit.xml"        
                 org-slug: adam-test
                 token: ${{ secrets.TRUNK_TOKEN }}
+            - name: DEBUG: Sleep
+              run: |
+                sleep 10000
