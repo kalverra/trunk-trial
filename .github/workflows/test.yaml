@@ -10,7 +10,10 @@ on:
         - main
     workflow_dispatch:
 
-        
+concurrency:
+    group: ${{ github.ref != 'refs/heads/develop' && format('tests-{0}-{1}-{2}', github.ref, github.repository, github.event_name) }}
+    cancel-in-progress: true
+
 jobs:
     test:
         runs-on: ubuntu-latest
