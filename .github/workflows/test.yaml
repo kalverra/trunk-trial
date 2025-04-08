@@ -21,7 +21,7 @@ jobs:
         steps:
             - name: Print concurrency group
               run: |
-                echo "Concurrency group: ${{ github.concurrency.group }}"
+                echo "Concurrency group: ${{ github.ref != 'refs/heads/pr5' && format('tests-{0}-{1}-{2}', github.ref, github.repository, github.event_name) || github.sha }}"
             - name: Checkout code
               uses: actions/checkout@v4
             - name: Set up Go
