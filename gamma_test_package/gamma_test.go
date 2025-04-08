@@ -20,3 +20,8 @@ func TestPass2(t *testing.T) {
 	t.Parallel()
 	t.Logf("%s: This test always passes\n", packageName)
 }
+
+func TestPass3(t *testing.T) {
+	t.Parallel()
+	t.Logf("%s: This test always passes\n", packageName)
+}
