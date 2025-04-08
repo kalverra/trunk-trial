@@ -15,3 +15,8 @@ func TestFail(t *testing.T) {
 	t.Parallel()
 	t.Fatalf("%s: This test always fails\n", packageName)
 }
+
+func TestPass2(t *testing.T) {
+	t.Parallel()
+	t.Logf("%s: This test always passes\n", packageName)
+}
