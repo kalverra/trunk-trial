@@ -38,5 +38,6 @@ jobs:
                 token: ${{ secrets.TRUNK_TOKEN }}
             # DEBUG: Sleep
             - name: Sleep
+              if: always()
               run: |
                 sleep 10000
