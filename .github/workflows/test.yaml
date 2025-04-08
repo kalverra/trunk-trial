@@ -12,7 +12,7 @@ on:
 
 # DEBUG: Concurrency
 concurrency:
-    group: ${{ github.ref != 'refs/heads/pr5' && format('tests-{0}-{1}-{2}', github.ref, github.repository, github.event_name) }}
+    group: ${{ github.ref != 'refs/heads/pr5' && format('tests-{0}-{1}-{2}', github.ref, github.repository, github.event_name) || '' }}
     cancel-in-progress: true
 
 jobs:
