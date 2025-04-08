@@ -10,18 +10,13 @@ on:
         - main
     workflow_dispatch:
 
-# DEBUG: Concurrency
-concurrency:
-    group: ${{ github.ref != 'refs/heads/pr5' && format('tests-{0}-{1}-{2}', github.ref, github.repository, github.event_name) || github.sha }}
-    cancel-in-progress: true
-
 jobs:
     test:
         runs-on: ubuntu-latest
         steps:
             - name: Print concurrency group
               run: |
-                echo "Concurrency group: ${{ github.ref != 'refs/heads/pr5' && format('tests-{0}-{1}-{2}', github.ref, github.repository, github.event_name) || github.sha }}"
+                echo "Concurrency group: ${{ github.ref != 'refs/heads/pr5' && format('tests-{0}-{1}-{2}', github.ref, github.event_name) || github.sha }}"
             - name: Checkout code
               uses: actions/checkout@v4
             - name: Set up Go
@@ -39,8 +34,3 @@ jobs:
                 junit-paths: "**/junit.xml"        
                 org-slug: adam-test
                 token: ${{ secrets.TRUNK_TOKEN }}
-            # DEBUG: Sleep
-            - name: Sleep
-              if: always()
-              run: |
-                sleep 200
