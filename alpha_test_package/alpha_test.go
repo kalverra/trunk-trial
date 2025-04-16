@@ -145,6 +145,24 @@ func TestRandomFlaky(t *testing.T) {
 	t.Log("This test is designed to pass 3/4 of the time")
 }
 
+func TestFlakeDependingOnDay(t *testing.T) {
+	t.Parallel()
+
+	day := time.Now().Day()
+	if day%2 == 0 {
+		t.Fatal("This test flakes if the day is even")
+	}
+}
+
+func TestFlakeDependingOnHour(t *testing.T) {
+	t.Parallel()
+
+	hour := time.Now().Hour()
+	if hour%2 == 0 {
+		t.Fatal("This test flakes if the hour is even")
+	}
+}
+
 func TestSkipped(t *testing.T) {
 	t.Parallel()
 	t.Skip("This test is intentionally skipped")
